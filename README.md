@@ -1,28 +1,28 @@
-# Klasyczne sylabusy z listami zadań
+# Classic syllabi with task lists
 
-**Kurs:** Analysis of Large Data Sets (ADD)  
-**Model zajęć:** Klasyczne rozwiązanie sylabusowe – zajęcia z listami zadań (ćwiczenia + zadania do oddania).
+**Course:** Analysis of Large Data Sets (ADD)  
+**Format:** Classic syllabus-based labs with task lists (worked examples + assignable task lists).
 
-Opis klasycznych zajęć stacjonarnych (sylabus) znajduje się w pliku **ADD_stacjonarne.pdf** w głównym katalogu tego repozytorium.
-
----
-
-## Struktura repozytorium
-
-| Folder | Opis |
-|--------|------|
-| **przyklady-pokazowe** | Materiały pokazowe z krokami „jak zacząć” – instalacja narzędzi, ładowanie danych, pierwsze zadanie krok po kroku. Służą do pokazania studentom, jak rozpocząć pracę z narzędziami. |
-| **listy-zadan** | Listy zadań do realizacji przez studentów (tylko zadania + rozszerzone oczekiwania i wymagania oddania, w stylu sekcji „Deliverables” z przykładów). |
+The official syllabus for the on-campus course is in **ADD_stacjonarne.pdf** in the root of this repository.
 
 ---
 
-## Zawartość
+## Repository structure
 
-- **przyklady-pokazowe/01.md** – przykład laboratorium (Association Rule Mining, RapidMiner): cel, pojęcia, instalacja, przykładowe zadanie z prowadzeniem, zadania dla studentów, wymagania oddania.
-- **listy-zadan/01.md** – lista zadań (teoria, analiza zbioru transakcji, ocena reguł, praca w narzędziu, eksploracja parametrów, własny zbiór, dyskusja) z rozszerzonym opisem oczekiwań i formatu oddania.
+| Folder | Description |
+|--------|-------------|
+| **worked-examples** | Step-by-step materials showing how to get started: tool installation, loading data, first tasks with full guidance. Used to show students how to begin working with the tools. |
+| **task-lists** | Task lists for students (tasks only + extended expectations and submission requirements, in the style of the "Deliverables" section in the worked examples). |
 
 ---
 
-## Język
+## Content (first 4 sessions)
 
-Materiały w języku angielskim, spójne z sylabusem ADD.
+| Session | Topic | worked-examples | task-lists |
+|---------|--------|-----------------|------------|
+| 1 | Association rule mining 1 – intro, RapidMiner setup | `01.md` | `01.md` |
+| 2 | Association rule mining 2 – advanced techniques, transactional data | `02.md` | `02.md` |
+| 3 | Recommendation systems – implementation | `03.md` | `03.md` |
+| 4 | Dimensionality reduction (SVD, PCA), feature selection, EigenFace | `04.md` | `04.md` |
+
+All materials are in English, aligned with the ADD syllabus.
