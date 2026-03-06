@@ -3,8 +3,6 @@
 **Course:** Analysis of Large Data Sets (ADD)  
 **Format:** Classic syllabus-based labs with task lists (worked examples + assignable task lists).
 
-The official syllabus for the on-campus course is in **ADD_stacjonarne.pdf** in the root of this repository.
-
 ---
 
 ## Repository structure
@@ -20,9 +18,9 @@ The official syllabus for the on-campus course is in **ADD_stacjonarne.pdf** in 
 
 | Session | Topic | worked-examples | task-lists |
 |---------|--------|-----------------|------------|
-| 1 | Association rule mining 1 – intro, RapidMiner setup | `01.md` | `01.md` |
-| 2 | Association rule mining 2 – advanced techniques, transactional data | `02.md` | `02.md` |
-| 3 | Recommendation systems – implementation | `03.md` | `03.md` |
-| 4 | Dimensionality reduction (SVD, PCA), feature selection, EigenFace | `04.md` | `04.md` |
+| 1 | Association rule mining 1 – intro, RapidMiner setup | [01.md](worked-examples/01.md) | [01.md](task-lists/01.md) |
+| 2 | Association rule mining 2 – advanced techniques, transactional data | [02.md](worked-examples/02.md) | [02.md](task-lists/02.md) |
+| 3 | Recommendation systems – implementation | [03.md](worked-examples/03.md) | [03.md](task-lists/03.md) |
+| 4 | Dimensionality reduction (SVD, PCA), feature selection, EigenFace | [04.md](worked-examples/04.md) | [04.md](task-lists/04.md) |
 
 All materials are in English, aligned with the ADD syllabus.
