@@ -37,9 +37,9 @@
 
 ---
 
-## Worked examples (intro sessions 1–4)
+## Worked examples (sessions 1–13)
 
-Detailed walkthroughs exist for the **first four** labs; later sessions may be extended in the same style over time.
+Guided lab walkthroughs (goals, concepts, instructor demos, student tasks, deliverables) mirror the style of sessions **1–4** for **all** syllabus-aligned labs.
 
 | Session | Topic | worked-examples |
 |---------|--------|-----------------|
@@ -47,6 +47,15 @@ Detailed walkthroughs exist for the **first four** labs; later sessions may be e
 | 2 | Association rule mining 2 | [02.md](worked-examples/02.md) |
 | 3 | Recommendation systems | [03.md](worked-examples/03.md) |
 | 4 | PCA / EigenFace | [04.md](worked-examples/04.md) |
+| 5 | MapReduce & counting (assoc. scale-up) | [05.md](worked-examples/05.md) |
+| 6 | Clustering intro + project kick-off | [06.md](worked-examples/06.md) |
+| 7 | Text clustering (TF-IDF) | [07.md](worked-examples/07.md) |
+| 8 | VFDT / stream trees | [08.md](worked-examples/08.md) |
+| 9 | Stream concepts + project milestone | [09.md](worked-examples/09.md) |
+| 10 | Stream learning (RM / Python) | [10.md](worked-examples/10.md) |
+| 11 | PageRank & HITS | [11.md](worked-examples/11.md) |
+| 12 | Social graphs & centrality | [12.md](worked-examples/12.md) |
+| 13 | Final project session | [13.md](worked-examples/13.md) |
 
 ---
 
