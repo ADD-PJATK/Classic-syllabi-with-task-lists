@@ -3,7 +3,7 @@
 **Course:** Analysis of Large Data Sets (ADD)  
 **Format:** Classic syllabus-based labs with task lists (worked examples + assignable task lists).
 
-**Syllabus reference:** The full **stationary (*stacjonarne*)** programme topics were taken from `ADD_stacjonarne.pdf` (course syllabus: lectures + labs 1–13) and expressed below in **English** for teaching. Session titles follow that document; task lists are **assignable lab specifications** aligned with those themes.
+**Syllabus reference:** The **stationary (*stacjonarne*)** programme topics (lectures + labs 1–13) are in [syllabus-reference/ADD_stacjonarne.pdf](syllabus-reference/ADD_stacjonarne.pdf) (Polish official excerpt). This repository expresses them in **English** for teaching. Session titles follow that document; task lists are **assignable lab specifications** aligned with those themes.
 
 ---
 
