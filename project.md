@@ -1,7 +1,7 @@
 # Semester project (classic / stationary track)
 
 **Course:** Analysis of Large Data Sets (ADD) — *Analiza dużych zbiorów danych*  
-**Source:** Official syllabus (*stacjonarne* programme excerpt in `ADD_stacjonarne.pdf`, repository root for reference).
+**Source:** Official syllabus (*stacjonarne* programme excerpt): [syllabus-reference/ADD_stacjonarne.pdf](syllabus-reference/ADD_stacjonarne.pdf).
 
 ---
 
