@@ -1,37 +1,35 @@
-# Mini‑projekt (Classic mode) — 4 zajęcia: Data → Features → Model
+# Mini Project (Classic mode) — 4 sessions: Data → Features → Model
 
-**Tryb:** Classic (syllabus + task lists)  
-**Czas:** maks. 4 zajęcia (po ~90 min)  
-**Cel:** zbudować mały, kompletny prototyp: automatyczne pobieranie danych → walidacja → EDA + skalowanie → feature engineering → model + walidacja + optymalizacja.  
-
-**English summary:** A 4-session mini project where you automatically fetch data from a provided source URL, validate it, perform EDA and scaling, engineer features, and train + validate + tune a baseline model.
+**Mode:** Classic (syllabus + task lists)  
+**Time:** maximum 4 sessions (~90 minutes each)  
+**Goal:** build a small end-to-end prototype: automatic data fetching → validation → EDA + scaling → feature engineering → model training + validation + optimisation.  
 
 ---
 
-## Źródło danych (wymagane, z linku)
+## Data source (required, from a URL)
 
-Użyj publicznego feedu USGS Earthquakes (GeoJSON), bez klucza API:
+Use the public USGS Earthquakes feed (GeoJSON), no API key required:
 
 - **All earthquakes, last 30 days:** `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson`
 
-To źródło jest:
+This source is:
 
-- proste (JSON),
-- stabilne i publiczne,
-- aktualizowane automatycznie,
-- ma sensowne pola numeryczne + czas + lokalizację (dobry materiał do EDA i feature engineering).
+- simple (JSON),
+- stable and public,
+- automatically updated,
+- contains meaningful numeric fields + time + location (good for EDA and feature engineering).
 
 ---
 
-## Repo i struktura (wymagane)
+## Repository and structure (required)
 
-Zalecana struktura:
+Recommended structure:
 
 ```
 mini-project/
-├── data_raw/                 # pobrane dane (cache) lub puste + .gitignore
-├── data_processed/           # dane po czyszczeniu / transformacjach
-├── data_examples/            # małe sample (10–200 wierszy)
+├── data_raw/                 # downloaded data (cache) OR empty + .gitignore
+├── data_processed/           # cleaned / transformed data
+├── data_examples/            # small samples (10–200 rows)
 ├── scripts/
 │   ├── 01_fetch_and_validate.py
 │   ├── 02_eda_and_scaling.py
@@ -46,174 +44,174 @@ mini-project/
 └── README.md
 ```
 
-**Ważne:** pełnych danych nie musisz commitować. W repo ma być:
+**Important:** you do not need to commit the full dataset. Your repository must include:
 
-- skrypt pobierający dane,
-- sample w `data_examples/`,
-- dokumentacja co i gdzie powstaje.
+- a script that fetches the data,
+- samples in `data_examples/`,
+- documentation of what is produced and where.
 
 ---
 
-## Definicja problemu modelowania (wybierz jedną opcję)
+## Modelling problem definition (pick one option)
 
-Wybierz **jedną** i trzymaj się jej w całym projekcie:
+Pick **one** and use it consistently throughout the project:
 
-### Opcja A — Klasyfikacja (łatwiejsza do interpretacji)
+### Option A — Classification (easier to interpret)
 
-**Cel:** przewidzieć kategorię wielkości wstrząsu:
+**Goal:** predict whether an earthquake is “strong”:
 
-- label: `is_strong = 1` jeśli `mag >= 5.0`, inaczej `0`.
+- label: `is_strong = 1` if `mag >= 5.0`, otherwise `0`.
 
-Metryki:
+Metrics:
 
-- F1 (ważne przy niezbalansowanych klasach),
-- ROC-AUC (opcjonalnie).
+- F1 (important for imbalanced classes),
+- ROC-AUC (optional).
 
-### Opcja B — Regresja
+### Option B — Regression
 
-**Cel:** przewidzieć `mag` (magnituda).
+**Goal:** predict `mag` (magnitude).
 
-Metryki:
+Metrics:
 
 - MAE / RMSE.
 
 ---
 
-## Zasady jakości (obowiązkowe w całym projekcie)
+## Quality rules (mandatory for the whole project)
 
-- Każdy krok ma mieć **runnable script** w `scripts/`.
-- Każdy krok ma mieć krótką notatkę w `documentation/`.
-- Zapisuj kluczowe artefakty:
-  - sample danych,
-  - wykresy EDA,
-  - tabelkę feature’ów,
-  - wyniki metryk i porównanie modeli.
-- Ustaw **random seed** i opisz go w dokumentacji.
+- Each step must have a **runnable script** in `scripts/`.
+- Each step must have a short note in `documentation/`.
+- Save key artifacts:
+  - data samples,
+  - EDA plots,
+  - a feature table,
+  - metrics results and a model comparison.
+- Set a **random seed** and document it.
 
 ---
 
-# Zajęcia 1/4 — Pobranie danych + walidacja (automatycznie)
+# Session 1/4 — Data fetching + validation (automatic)
 
-## Wymagania (deliverables)
+## Requirements (deliverables)
 
-1. Skrypt `scripts/01_fetch_and_validate.py`, który:
-   - pobiera dane z linku,
-   - zapisuje surowy plik (np. `data_raw/usgs_all_month.geojson`),
-   - wyciąga do tabeli (np. CSV/Parquet) minimalny zestaw pól:
+1. Script `scripts/01_fetch_and_validate.py` that:
+   - downloads data from the URL,
+   - saves the raw file (e.g., `data_raw/usgs_all_month.geojson`),
+   - extracts a minimal set of fields into a table (CSV/Parquet), for example:
      - `time`, `mag`, `place`, `latitude`, `longitude`, `depth`
-     - (opcjonalnie) `id`, `type`, `status`, `tsunami`, `sig`
-2. Prosta walidacja (minimum):
-   - sprawdź, czy dataset nie jest pusty,
-   - sprawdź, czy `mag` jest liczbą i nie jest absurdalna (np. `mag < -1` lub `mag > 10`),
-   - sprawdź brakujące wartości w kluczowych kolumnach (`mag`, `time`, `lat`, `lon`).
-3. Raport `documentation/01_data_ingestion_validation.md`:
-   - skąd dane (link),
-   - ile rekordów pobrano,
-   - jakie walidacje wykonałeś i jaki był wynik,
-   - gdzie zapisujesz outputy (ścieżki).
-4. Sample do repo:
-   - `data_examples/raw_sample.json` lub `raw_sample.csv` (np. 20 rekordów).
+     - (optional) `id`, `type`, `status`, `tsunami`, `sig`
+2. Simple validation (minimum):
+   - check the dataset is not empty,
+   - check `mag` is numeric and not absurd (e.g., `mag < -1` or `mag > 10`),
+   - check missing values in key columns (`mag`, `time`, `lat`, `lon`).
+3. Report `documentation/01_data_ingestion_validation.md`:
+   - data source (URL),
+   - how many records were downloaded,
+   - which validations you executed and the result,
+   - where outputs are written (paths).
+4. Repo samples:
+   - `data_examples/raw_sample.json` or `raw_sample.csv` (e.g., 20 records).
 
-## Minimalny próg zaliczenia
+## Minimum pass threshold
 
-- pobranie działa “od zera”,
-- walidacja raportuje wyniki i nie jest tylko opisem.
-
----
-
-# Zajęcia 2/4 — EDA + normalizacja/standaryzacja
-
-## Wymagania (deliverables)
-
-1. Skrypt `scripts/02_eda_and_scaling.py`, który:
-   - ładuje dane po kroku 1,
-   - wykonuje EDA:
-     - rozkład `mag` (histogram),
-     - brakujące wartości (tabela lub heatmapa),
-     - korelacje podstawowych cech numerycznych (np. `mag`, `depth`, `sig` jeśli używasz),
-   - przygotowuje wersję danych do modelowania:
-     - imputacja braków (opisana),
-     - **standaryzacja** (np. StandardScaler) lub **normalizacja** (MinMaxScaler) — uzasadnij wybór.
-2. Raport `documentation/02_eda_scaling.md`:
-   - 3–5 najważniejszych obserwacji z EDA,
-   - co zrobiłeś z brakami,
-   - co i jak skalowałeś, dlaczego.
-3. Artefakty w repo:
-   - 2–4 wykresy w `data_examples/eda/` (PNG),
-   - sample danych po przetworzeniu (`data_examples/processed_sample.csv`).
+- fetching works “from scratch”,
+- validation reports results (not only a description).
 
 ---
 
-# Zajęcia 3/4 — Feature engineering
+# Session 2/4 — EDA + normalisation/standardisation
 
-## Wymagania (deliverables)
+## Requirements (deliverables)
 
-1. Skrypt `scripts/03_feature_engineering.py`, który tworzy min. **8 cech** (z czego min. 4 “nieliniowe” / pochodne), np.:
-   - czas:
+1. Script `scripts/02_eda_and_scaling.py` that:
+   - loads the dataset from Session 1,
+   - performs EDA:
+     - distribution of `mag` (histogram),
+     - missing values (table or heatmap),
+     - correlations of basic numeric features (e.g., `mag`, `depth`, `sig` if used),
+   - prepares a modelling-ready dataset:
+     - missing value imputation (documented),
+     - **standardisation** (e.g., StandardScaler) or **normalisation** (MinMaxScaler) — justify your choice.
+2. Report `documentation/02_eda_scaling.md`:
+   - 3–5 key observations from EDA,
+   - what you did with missing values,
+   - what and how you scaled, and why.
+3. Repo artifacts:
+   - 2–4 plots in `data_examples/eda/` (PNG),
+   - a processed sample (`data_examples/processed_sample.csv`).
+
+---
+
+# Session 3/4 — Feature engineering
+
+## Requirements (deliverables)
+
+1. Script `scripts/03_feature_engineering.py` that creates at least **8 features** (at least 4 “non-linear” / derived), for example:
+   - time-based:
      - `hour_of_day`, `day_of_week`, `month`
-   - geografia:
-     - “grid cell” (np. zaokrąglenie lat/lon do 0.5°) jako kategoria,
-     - odległość od ustalonego punktu referencyjnego (np. środek Europy) — cecha numeryczna
-   - sygnał:
+   - geography:
+     - “grid cell” (e.g., rounding lat/lon to 0.5°) as a categorical feature,
+     - distance to a fixed reference point (e.g., the geographic centre of Europe) — numeric feature
+   - signal/transformations:
      - `mag_depth_interaction = mag * depth`
      - `log_depth = log(1+depth)`
-   - tekst:
-     - proste cechy z `place` (np. długość stringa, czy zawiera nazwę regionu), **bez** ciężkich NLP
-2. Raport `documentation/03_feature_engineering.md`:
-   - tabelka “feature → jak liczony → po co”,
-   - informacja, które cechy są numeryczne/kategoryczne,
-   - gdzie zapisujesz finalną macierz cech (format + ścieżka + shape).
-3. Artefakty:
-   - `data_examples/feature_matrix_sample.csv` (np. 50 wierszy),
-   - krótka tabelka (w MD) z `shape` i listą kolumn.
+   - text (lightweight, no heavy NLP):
+     - simple features from `place` (string length, contains region keywords, etc.)
+2. Report `documentation/03_feature_engineering.md`:
+   - a table “feature → how computed → why”,
+   - which features are numeric vs categorical,
+   - where you save the final feature matrix (format + path + shape).
+3. Artifacts:
+   - `data_examples/feature_matrix_sample.csv` (e.g., 50 rows),
+   - a short table (in the MD) with `shape` and a column list.
 
 ---
 
-# Zajęcia 4/4 — Model + walidacja + optymalizacja
+# Session 4/4 — Model training + validation + optimisation
 
-## Wymagania (deliverables)
+## Requirements (deliverables)
 
-1. Skrypt `scripts/04_train_and_validate.py`, który:
-   - ładuje feature matrix,
-   - robi split train/test (lub train/valid/test) z seedem,
-   - trenuje co najmniej **2 modele**:
-     - baseline (np. Logistic Regression / Linear Regression),
-     - model mocniejszy (np. RandomForest / GradientBoosting / XGBoost jeśli umiesz).
-   - waliduje metrykami właściwymi dla problemu (A: F1/AUC, B: MAE/RMSE),
-   - zapisuje wyniki do pliku (np. `data_examples/model_results.json`).
-2. Optymalizacja (minimum):
-   - prosty tuning 1–2 hiperparametrów (GridSearchCV lub ręczny sweep),
-   - porównanie wyników “przed/po”.
-3. Raport `documentation/04_modeling.md`:
-   - definicja targetu,
-   - metryki i wyniki (tabela),
-   - interpretacja: co jest największym ograniczeniem (dane? cechy? metryka?),
-   - co byś zrobił dalej.
-
----
-
-## Kryteria oceny (proste)
-
-- **Reprodukowalność (30%)**: skrypty działają od zera; ścieżki i zależności opisane.
-- **Jakość danych i walidacja (20%)**: walidacja + sensowna obsługa braków.
-- **EDA + skalowanie (15%)**: poprawne i uzasadnione.
-- **Feature engineering (15%)**: sensowne cechy, opisane “po co”.
-- **Model + walidacja + tuning (20%)**: co najmniej 2 modele + metryki + minimalny tuning.
+1. Script `scripts/04_train_and_validate.py` that:
+   - loads the feature matrix,
+   - performs a train/test split (or train/valid/test) with a fixed seed,
+   - trains at least **two models**:
+     - a baseline (e.g., Logistic Regression / Linear Regression),
+     - a stronger model (e.g., RandomForest / GradientBoosting / XGBoost if you know it).
+   - validates using problem-appropriate metrics (A: F1/AUC, B: MAE/RMSE),
+   - saves results to a file (e.g., `data_examples/model_results.json`).
+2. Optimisation (minimum):
+   - simple tuning of 1–2 hyperparameters (GridSearchCV or a manual sweep),
+   - compare results “before vs after”.
+3. Report `documentation/04_modeling.md`:
+   - target definition,
+   - metrics and results (table),
+   - interpretation: what is the biggest limitation (data? features? metric?),
+   - what you would do next.
 
 ---
 
-## Minimalne wymagania techniczne
+## Grading criteria (simple)
+
+- **Reproducibility (30%)**: scripts run from scratch; paths and dependencies documented.
+- **Data quality and validation (20%)**: validation + sensible missing-value handling.
+- **EDA + scaling (15%)**: correct and justified.
+- **Feature engineering (15%)**: meaningful features with clear “why”.
+- **Model + validation + tuning (20%)**: at least 2 models + metrics + minimal tuning.
+
+---
+
+## Minimum technical requirements
 
 - Python 3.10+
-- Biblioteki (wystarczy podzbiór): `pandas`, `numpy`, `requests`, `scikit-learn`, `matplotlib` (opcjonalnie `pyarrow` dla Parquet).
+- Libraries (a subset is enough): `pandas`, `numpy`, `requests`, `scikit-learn`, `matplotlib` (optionally `pyarrow` for Parquet).
 
 ---
 
-## “How to run” (wymagane w `README.md`)
+## “How to run” (required in `README.md`)
 
-W `README.md` umieść:
+In `README.md`, include:
 
-1. instalację zależności,
-2. kolejność uruchomienia skryptów 01 → 04,
-3. gdzie powstają outputy i sample.
+1. dependency installation,
+2. the run order for scripts 01 → 04,
+3. where outputs and samples are written.
 
